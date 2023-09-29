@@ -7,6 +7,7 @@ int runnerEnergy = 50;
 int coveredDistance = 10;
 bool playAgain = true;
 
+//Har lite problem med att få det att snurra som det ska med if och else if filerna om mätaren går ner till 0, om man vinner eller förlorar. infinite loop problem
 while (isRunning)
 {
     Console.WriteLine("Välkommen till Running Simulator!");
