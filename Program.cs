@@ -55,7 +55,7 @@
         DateTime date = new DateTime();
         date = DateTime.Parse(dateString);
         Console.WriteLine("Du uppgav " + date.ToString(" dd/MM/YYYY"));
-        //Uppgift 6, årtalet funkar inte?
+        //Uppgift 6, årtalet funkar inte? TINTIN: När du kallar på ToString för ett DateTime objekt så är det viktigt med stora bokstäver, så du ska ist för "dd/MM/YYYY" ha "dd/MM/yyyy" :-)
 
         Console.WriteLine("Säg en veckodag");
         string UserInput = Console.ReadLine();
