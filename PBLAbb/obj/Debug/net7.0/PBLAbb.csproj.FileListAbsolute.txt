@@ -1,0 +1,14 @@
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\bin\Debug\net7.0\PBLAbb.exe
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\bin\Debug\net7.0\PBLAbb.deps.json
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\bin\Debug\net7.0\PBLAbb.runtimeconfig.json
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\bin\Debug\net7.0\PBLAbb.dll
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\bin\Debug\net7.0\PBLAbb.pdb
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\obj\Debug\net7.0\PBLAbb.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\obj\Debug\net7.0\PBLAbb.AssemblyInfoInputs.cache
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\obj\Debug\net7.0\PBLAbb.AssemblyInfo.cs
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\obj\Debug\net7.0\PBLAbb.csproj.CoreCompileInputs.cache
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\obj\Debug\net7.0\PBLAbb.dll
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\obj\Debug\net7.0\refint\PBLAbb.dll
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\obj\Debug\net7.0\PBLAbb.pdb
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\obj\Debug\net7.0\PBLAbb.genruntimeconfig.cache
+C:\Users\Johnn\OneDrive\Skrivbord\Git arkiv\PBLAbb\obj\Debug\net7.0\ref\PBLAbb.dll
