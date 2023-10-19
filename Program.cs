@@ -1,76 +1,98 @@
 ﻿class Program
 {
-    //Grupp-15
-    //Johnny Dahle
-    //Leo Bengtsson
-
-    static bool isValidPNR(String Number)
+    static string EncryptMessage(string message, int shiftValue) //den här metoden kodar ett skrivet meddelande. Både denna och Decrypt kallar på process för att göra om ett meddelande.
     {
-        if (Number.Length != 10)
-        {
-            Console.WriteLine("Din input är inte 10 siffror, försök igen");
-            return false; 
-        }
+        return Process(message, shiftValue, true);
 
-        int[] personnummer = new int[10];
-        int[] multip = { 2, 1, 2, 1, 2, 1, 2, 1, 2, 1 };
-
-        for (int i = 0; i < 10; i++)                                        //den här for-loopen upprepar varje i mellan 0-9.
+    }
+    static string DecryptMessage(string message, int shiftValue)  //den här metoden avkodar ett redan kodat meddelande. string = meddelandet och int = hur många platser den ska skiftas.
+    {
+        return Process(message, shiftValue, false);
+    }
+    static string Process(string message, int shiftValue, bool encrypt) //Här sker magin, den var svårast att få ihop och jag fick lära mig offset
+                                                                        //och hur man försäkrar sig om stor/liten bokstav. shiftValue förflyttar texten det antal steg man skriver. 
+                                                                        // aa + shiftValue 2 = cc och likadant tillbaka med decoder. Maximalt nummer man kan skriva är då antalet bokstäver (26) som finns i alfabetet.
+                                                                        
+    {
+        char[] result = message.ToCharArray();                          //Här omvandlas stringen till en array av chars.
+        for (int i = 0; i < result.Length; i++)
         {
-            if (!int.TryParse(Number[i].ToString(), out personnummer[i])) //här sker konvertering till int och försöker spara det i personnummer
+            char c = result[i];
+
+            if (char.IsLetter(c))                                       //är char en bokstav? Om inte, t.ex en siffra, låter den vara densamma.
             {
-                Console.WriteLine("Något blev fel där, försök igen. ");  //Skrivs något fel sker felmeddelande
-                return false;
-            }
-        }
+                char offset = char.IsUpper(c) ? 'A' : 'a';              //kollar om bokstav är stor eller liten.
 
-        int total = 0;                                         //här sparas uppgifterna i en egen variabel
-
-        for (int i = 0; i < personnummer.Length; i++)         //Den här for-loopen itererar igenom alla siffror i personnummer arrayen och multiplicerar det med den motsvarande siffran i multip-arrayen som sedan sparas i resultat variabeln.
-                                                              //Sen kollar den om resultatet av multiplikationen är lika eller större än 10.
-        {
-            int result = personnummer[i] * multip[i];
-
-            if (result >= 10)
-            {
-                while (result > 0)           ///Är den det går den in i while-loopen för att använda modulus och separera sifforna och addera dem 2 som
+                if (encrypt)
                 {
-                    total += result % 10;
-                    result /= 10;
+                    result[i] = (char)(((c - offset + shiftValue) % 26) + offset);  //Enkrypteringsprocessen sker här med att först kolla char (c) för varje bokstav i meddelandet
+                                                                                    //och med offset kollas om det är stor/liten bokstav.
+                                                                                    //shiftValue flyttar karaktären med ett visst antal steg som skrivet ovan.
+                                                                                    //Hela uträkningen flyttar en karaktär till sin nya plats. a + 2 = c osv
+                                                                                    //med decrypt gör den samma sak fast omvänt. c - 2 = a elr C - 2 = A
+                                                                                    //Resultat sparas sedan i result[i] \n
+
+                }
+                else
+                {
+                    result[i] = (char)(((c - offset - shiftValue + 26) % 26) + offset);  //här sker samma som ovan fast omvänt (decrypt).
                 }
             }
-
-            else
-            {
-                total += result;            //sedan skickar in resultatet i totalen om den är mellan 0-9.
-            }
         }
-
-        return total % 10 == 0;             //här kollas det om totalen kan delas med 10. Om ja är den giltig.
-
+        return new string(result);
     }
-    public static void Main(string[] args)
+    static void Main(string[] args)
     {
-        Console.WriteLine("Skriv ett 10-siffrigt personnummer utan mellanslag: ");
-        string input = Console.ReadLine();
-
-        if (input.Length != 10)
+        while (true)
         {
-            Console.WriteLine("Du skrev in för få eller för många siffror, prova igen");
-
-        }
-
-        else
-        {
-            if (isValidPNR(input))
+            Console.WriteLine("Welcome to the secret coder system, comrade. \n" +
+                "Choose a operation: 1. Encrypt. 2. Decrypt. 3. Exit program. ");
+            try
             {
-                Console.WriteLine("Det är ett riktigt personnummer, hurra!");
+                //använder en try-catch runt programmet för att fånga ev. icke-nummer svar och felaktigheter.
+
+                int operation = int.Parse(Console.ReadLine());
+
+                if (operation == 3) //avslutar programmet.
+                {
+                    Console.WriteLine("Farewell Comrade, program exited.");
+                    break;
+                }
+
+                if (operation != 1 && operation != 2) //Om man skriver in något annat än valen 1,2 eller 3.
+                {
+                    Console.WriteLine("That's an invalid input. Please try again");
+                    continue;
+                }
+
+                Console.WriteLine("Okay Comrade, please enter message: ");  //dem här två tar in meddelande och shift-värdet.
+                string message = Console.ReadLine();
+
+                Console.WriteLine("Okay, now enter the shift value (a number): ");
+                int shiftValue = int.Parse(Console.ReadLine());
+
+                string result = (operation == 1) ? EncryptMessage(message, shiftValue) : DecryptMessage(message, shiftValue); //Här kollas det om svaret är 1. \n
+                                                                                                                //Frågetecknet gör att om det inte är op 1, kör nästa (decrypt). Kallades ternary operator.
+
+                if (operation == 1) //om valet var 1, gör enkrypteringen. 2 gör dekryptering.
+                {
+                    Console.WriteLine("Encrypted message follows: ");
+                }
+                else
+                {
+                    Console.WriteLine("Decrypted message follows: ");
+                }
+
+                Console.WriteLine(result); //skriv ut resultatet.
             }
-            else
+            catch (FormatException) //fångar upp felaktigheter i inputen. Liknar den ovan men gäller för alla bokstäver också.
             {
-                Console.WriteLine("Det är ett ogiligt personnummer, synd");
+                Console.WriteLine("Invalid input. Try again and write a valid number: 1, 2 or 3");
             }
         }
-
     }
 }
+
+//Caesar lät roligast att prova på fastän den såg mer skrämmande ut än vad det var tillslut. Men när man förstod själva 
+//uträkningen eller shiftningen "result[i] = (char)(((c - offset + shiftValue) % 26) + offset);" och vad det innebar
+// så gick det relativt smidigt att knåpa ihop det hela. Självklart blev det att googla en del för att förstå men överlag en bra utmaning.
